@@ -52,7 +52,7 @@ function App() {
 
 
   let starredEmails = 0
-  initialEmails.forEach(email => {
+  emailsToShow.forEach(email => {
     if (email.starred === true) {
       starredEmails += 1
     }
@@ -60,7 +60,7 @@ function App() {
 
 
   let unreadEmails = 0
-  initialEmails.forEach(email => {
+  emailsToShow.forEach(email => {
     if (email.read === false) {
       unreadEmails += 1
     }
@@ -108,7 +108,7 @@ function App() {
         <ul>
           {
             emailsToShow.map(email => (
-              <li className={`email ${email.read ? 'read' : 'unread'}`}>
+              <li key={email.id} className={`email ${email.read ? 'read' : 'unread'}`}>
                 <input type="checkbox"
                   checked={email.read}
                   onClick={() => {
