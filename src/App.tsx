@@ -5,13 +5,22 @@ import initialEmails from "./data/emails";
 import "./App.css";
 import { useState } from "react";
 
+type Email = {
+  id: number;
+  sender: string;
+  title: string;
+  starred: boolean;
+  read: boolean;
+
+}
+
 function App() {
   // Use initialEmails for state
   const [emails, setEmails] = useState(initialEmails)
   const [hideRead, setHideRead] = useState(false)
   const [currentTab, setCurrentTab] = useState(false)
 
-  function toggleRead(selectedEmail) {
+  function toggleRead(selectedEmail: Email) {
     const updatedEmails = JSON.parse(JSON.stringify(emails))
     const match = updatedEmails.find(email => email.id === selectedEmail.id)
     match.read = !match.read
@@ -19,7 +28,7 @@ function App() {
   }
 
 
-  function toggleStar(selectedEmail) {
+  function toggleStar(selectedEmail: Email) {
     const updatedEmails = JSON.parse(JSON.stringify(emails))
     const match = updatedEmails.find(email => email.id === selectedEmail.id)
     match.starred = !match.starred
@@ -111,14 +120,14 @@ function App() {
               <li key={email.id} className={`email ${email.read ? 'read' : 'unread'}`}>
                 <input type="checkbox"
                   checked={email.read}
-                  onClick={() => {
+                  onChange={() => {
                     toggleRead(email)
                   }}
                 />
                 <input type="checkbox"
                   className="star-checkbox"
                   checked={email.starred}
-                  onClick={() => {
+                  onChange={() => {
                     toggleStar(email)
                   }}
                 />
